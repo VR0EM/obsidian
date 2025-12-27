@@ -1,0 +1,205 @@
+/* =========================================================
+   COLORFUL FOLDER
+   ========================================================= */
+
+/* Styling voor de tekst in de map */
+body.colorful-folder .nav-folder > .nav-folder-title .nav-folder-title-content {
+  color: var(--colorful-folder-color);
+  font-weight: 600;
+}
+
+/* Hover effect: Kleur wordt duidelijker als je eroverheen gaat */
+body.colorful-folder .nav-folder > .nav-folder-title:hover {
+  background-color: color-mix(in srgb, var(--colorful-folder-color), transparent 60%);
+}
+
+
+/* =========================================================
+   IMAGES (READ MODE + LIVE PREVIEW)
+   ========================================================= */
+
+/* Afbeeldingen in lees-modus en live-preview */
+.markdown-source-view img,
+.markdown-rendered img {
+  border-radius: 8px; /* Ronde hoeken */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* Subtiele schaduw */
+  transition: transform 0.2s ease; /* Voorbereiding voor hover */
+  display: block;
+  margin-left: auto;
+  margin-right: auto; /* Centreer afbeeldingen automatisch */
+}
+
+/* Klein zoom-effect als je met je muis over een plaatje gaat */
+.markdown-source-view img:hover,
+.markdown-rendered img:hover {
+  transform: scale(1.015);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+
+/* =========================================================
+   04-editor-readability.css
+   ========================================================= */
+
+:root {
+  --reading-line-height: 1.62;
+  --reading-font-size: 16px;
+  --reading-max-width: 900px;
+}
+
+/* Reading view + live preview: net wat ruimer en rustiger */
+.markdown-preview-view,
+.markdown-source-view.mod-cm6 .cm-content {
+  font-size: var(--reading-font-size);
+  line-height: var(--reading-line-height);
+}
+
+/* Max breedte voor tekst, zodat het niet te “wide” wordt */
+.markdown-preview-sizer,
+.markdown-source-view.mod-cm6 .cm-sizer {
+  max-width: var(--reading-max-width);
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Current line highlight (subtiel) */
+.markdown-source-view.mod-cm6 .cm-line.cm-active {
+  background: color-mix(in srgb, var(--interactive-accent) 8%, transparent);
+  border-radius: 8px;
+}
+
+
+/* =========================================================
+   08-tables-modern.css
+   ========================================================= */
+
+.markdown-rendered table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--background-modifier-border) 75%, transparent);
+}
+
+.markdown-rendered thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.markdown-rendered thead th:nth-child(1){
+  border-top-left-radius: 14px;
+}
+.markdown-rendered thead th:last-child{
+  border-top-right-radius: 14px;
+}
+
+/* Zebra */
+.markdown-rendered tbody tr:nth-child(2n) td {
+  background: rgba(255,255,255,0.02);
+}
+
+.markdown-rendered td,
+.markdown-rendered th {
+  padding: 10px 12px;
+  border-bottom: 1px solid color-mix(in srgb, var(--background-modifier-border) 70%, transparent);
+}
+
+
+/* =========================================================
+   12-modals-command-glass.css
+   ========================================================= */
+
+.theme-dark .modal,
+.theme-dark .suggestion-container,
+.theme-dark .prompt,
+.theme-dark .popover {
+  backdrop-filter: blur(18px) saturate(125%);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+  background: color-mix(in srgb, var(--background-primary) 70%, transparent) !important;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 40px 120px -80px rgba(0,0,0,0.95);
+  border-radius: 18px;
+}
+
+/* Suggestion items (quick switcher / cmd palette) */
+.theme-dark .suggestion-item {
+  border-radius: 12px;
+  margin: 4px 6px;
+  padding: 10px 12px;
+}
+
+.theme-dark .suggestion-item.is-selected {
+  background: color-mix(in srgb, var(--interactive-accent) 18%, rgba(255,255,255,0.03)) !important;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
+}
+
+
+/* =========================================================
+   24-header-title-polish.css
+   ========================================================= */
+
+.view-header-title {
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  opacity: 0.95;
+}
+
+.view-header {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px) saturate(115%);
+  -webkit-backdrop-filter: blur(12px) saturate(115%);
+}
+
+.view-header:hover {
+  border-bottom-color: color-mix(in srgb, var(--interactive-accent) 25%, rgba(255,255,255,0.06));
+}
+
+
+/* =========================================================
+   25-hit-targets.css
+   ========================================================= */
+
+.nav-file-title,
+.nav-folder-title,
+.workspace-tab-header,
+button.clickable-icon {
+  min-height: 30px;
+}
+
+/* Klikzone voor tabs iets breder */
+.workspace-tab-header-inner {
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+}
+
+
+/* =========================================================
+   26-design-tokens.css
+   ========================================================= */
+
+/* Pas dit aan en de rest volgt mee */
+:root {
+  --radius-s: 10px;
+  --radius-m: 14px;
+  --radius-l: 18px;
+
+  --panel-alpha: 0.72;
+  --panel-border: rgba(255,255,255,0.07);
+
+  --shadow-soft: 0 18px 50px -44px rgba(0,0,0,0.95);
+  --shadow-med: 0 24px 70px -56px rgba(0,0,0,0.95);
+
+  --glass-blur: 18px;
+  --glass-sat: 125%;
+
+  --ui-pad: 10px;
+  --ui-gap: 8px;
+
+  --hover-lift: translateY(-1px);
+  --transition-fast: 120ms;
+  --transition-med: 200ms;
+}
+

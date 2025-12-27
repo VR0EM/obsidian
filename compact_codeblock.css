@@ -1,0 +1,7 @@
+div.HyperMD-codeblock-begin, div.HyperMD-codeblock-end  {
+     --code-size: 6px;  /* Size of leading/trailing lines */
+ }
+ 
+ div.HyperMD-codeblock-begin.cm-active, div.HyperMD-codeblock-end.cm-active  {
+     --code-size: var(--font-smaller);  /* Resets leading/trailing line size when they're selected */ 
+ }

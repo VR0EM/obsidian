@@ -20,3 +20,5 @@ De volgende snippets zorgen voor de visuele verfijning:
 
 ---
 *Gemaakt met ❤️ en veel custom CSS.*
+
+<img width="2559" height="1521" alt="image" src="https://github.com/user-attachments/assets/ba667fbc-0a7b-46af-a198-073272a454b7" />

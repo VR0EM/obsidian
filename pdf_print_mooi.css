@@ -1,16 +1,36 @@
+/* =========================================================
+   PDF Export / Print styling (Border theme)
+   - Keeps your existing print styles
+   - Fixes tables: border + zebra + 14px radius
+   - Supports Obsidian PDF export (.print / body.print) AND @media print
+   ========================================================= */
+
+/* Obsidian PDF export context: force color rendering for zebra */
+.print,
+body.print {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+/* ---------------------------
+   Browser print context
+---------------------------- */
 @media print {
     /* ==============================================
        1. ALGEMENE PAGINA STIJL (WIT PAPIER)
     ============================================== */
     body, .markdown-preview-view, .markdown-rendered {
         background-color: #ffffff !important;
-        background-image: none !important; 
-        color: #24292f !important; 
+        background-image: none !important;
+        color: #24292f !important;
         --background-primary: #ffffff !important;
         --background-secondary: #ffffff !important;
         --text-normal: #24292f !important;
         --text-muted: #57606a !important;
         --text-faint: #8c959f !important;
+
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -44,9 +64,9 @@
        3. INLINE CODE (TUSSEN `BACKTICKS`)
     ============================================== */
     :not(pre) > code {
-        background-image: none !important; 
-        background-color: #eff1f3 !important; 
-        color: #cf222e !important; 
+        background-image: none !important;
+        background-color: #eff1f3 !important;
+        color: #cf222e !important;
         border: 1px solid #d0d7de !important;
         border-radius: 4px !important;
         padding: 0.2em 0.4em !important;
@@ -61,7 +81,7 @@
     ============================================== */
     pre {
         background-color: #f6f8fa !important;
-        background-image: none !important; 
+        background-image: none !important;
         border: 1px solid #d0d7de !important;
         border-radius: 6px !important;
         box-shadow: none !important;
@@ -76,7 +96,7 @@
         box-shadow: none !important;
         color: #24292f !important;
         font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
-        white-space: pre-wrap !important; 
+        white-space: pre-wrap !important;
     }
 
     pre code span {
@@ -97,22 +117,73 @@
 
     /* ==============================================
        6. TABELLEN & CALLOUTS
+       - Rounded (14px) + zebra + borders (PDF-stable)
     ============================================== */
-    table {
-        border-collapse: collapse !important;
-        width: 100%;
-        border: 1px solid #d0d7de !important;
+
+    :root {
+        --pdf-table-radius: 14px;
+        --pdf-table-border: #d0d7de;
+        --pdf-table-zebra:  #f6f8fa;
     }
-    th {
-        background-color: #f6f8fa !important;
+
+    /* Reset “card wrapper” rond tabellen, zodat border/radius clean is */
+    :is(.markdown-rendered, .markdown-preview-view) .table-wrapper {
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        overflow: visible !important;
+    }
+
+    /* Table container: rounded outer border */
+    :is(.markdown-rendered, .markdown-preview-view) table {
+        width: 100% !important;
+        border-collapse: separate !important; /* nodig voor radius */
+        border-spacing: 0 !important;
+
+        border: 1px solid var(--pdf-table-border) !important;
+        border-radius: var(--pdf-table-radius) !important;
+        overflow: hidden !important;
+
+        background: transparent !important;
+    }
+
+    /* Cell grid: enkel right/bottom om dubbele lijnen te vermijden */
+    :is(.markdown-rendered, .markdown-preview-view) th,
+    :is(.markdown-rendered, .markdown-preview-view) td {
+        border: 0 !important;
+        border-right: 1px solid var(--pdf-table-border) !important;
+        border-bottom: 1px solid var(--pdf-table-border) !important;
+        padding: 6px 13px !important;
         background-image: none !important;
         color: #24292f !important;
     }
-    td, th {
-        border: 1px solid #d0d7de !important;
-        padding: 6px 13px !important;
+
+    /* last column: geen right-border (anders dubbel met outer border) */
+    :is(.markdown-rendered, .markdown-preview-view) tr > :last-child {
+        border-right: 0 !important;
     }
 
+    /* last row: geen bottom-border (anders dubbel met outer border) */
+    :is(.markdown-rendered, .markdown-preview-view) tbody tr:last-child > td {
+        border-bottom: 0 !important;
+    }
+
+    /* header background */
+    :is(.markdown-rendered, .markdown-preview-view) thead th {
+        background-color: var(--pdf-table-zebra) !important;
+        color: #24292f !important;
+    }
+
+    /* zebra (op TDs = PDF-stabiel) */
+    :is(.markdown-rendered, .markdown-preview-view) tbody tr:nth-child(even) > td {
+        background-color: var(--pdf-table-zebra) !important;
+    }
+    :is(.markdown-rendered, .markdown-preview-view) tbody tr:nth-child(odd) > td {
+        background-color: #ffffff !important;
+    }
+
+    /* Callouts (jouw bestaande stijl) */
     .callout {
         background-color: #ffffff !important;
         background-image: none !important;
@@ -120,4 +191,66 @@
         border-left-width: 4px !important;
         box-shadow: none !important;
     }
+}
+
+/* ---------------------------------------------------------
+   Obsidian PDF export context: apply SAME table rules
+   (Voor export flows die niet via @media print lopen)
+--------------------------------------------------------- */
+.print :is(.markdown-rendered, .markdown-preview-view) table,
+body.print :is(.markdown-rendered, .markdown-preview-view) table {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    border: 1px solid #d0d7de !important;
+    border-radius: 14px !important;
+    overflow: hidden !important;
+    background: transparent !important;
+}
+
+.print :is(.markdown-rendered, .markdown-preview-view) th,
+.print :is(.markdown-rendered, .markdown-preview-view) td,
+body.print :is(.markdown-rendered, .markdown-preview-view) th,
+body.print :is(.markdown-rendered, .markdown-preview-view) td {
+    border: 0 !important;
+    border-right: 1px solid #d0d7de !important;
+    border-bottom: 1px solid #d0d7de !important;
+    padding: 6px 13px !important;
+    background-image: none !important;
+}
+
+.print :is(.markdown-rendered, .markdown-preview-view) tr > :last-child,
+body.print :is(.markdown-rendered, .markdown-preview-view) tr > :last-child {
+    border-right: 0 !important;
+}
+
+.print :is(.markdown-rendered, .markdown-preview-view) tbody tr:last-child > td,
+body.print :is(.markdown-rendered, .markdown-preview-view) tbody tr:last-child > td {
+    border-bottom: 0 !important;
+}
+
+.print :is(.markdown-rendered, .markdown-preview-view) thead th,
+body.print :is(.markdown-rendered, .markdown-preview-view) thead th {
+    background-color: #f6f8fa !important;
+    color: #24292f !important;
+}
+
+.print :is(.markdown-rendered, .markdown-preview-view) tbody tr:nth-child(even) > td,
+body.print :is(.markdown-rendered, .markdown-preview-view) tbody tr:nth-child(even) > td {
+    background-color: #f6f8fa !important;
+}
+
+.print :is(.markdown-rendered, .markdown-preview-view) tbody tr:nth-child(odd) > td,
+body.print :is(.markdown-rendered, .markdown-preview-view) tbody tr:nth-child(odd) > td {
+    background-color: #ffffff !important;
+}
+
+/* wrapper reset in export context */
+.print :is(.markdown-rendered, .markdown-preview-view) .table-wrapper,
+body.print :is(.markdown-rendered, .markdown-preview-view) .table-wrapper {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
 }

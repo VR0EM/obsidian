@@ -1,0 +1,69 @@
+/* =================================================================
+   FIX WINDOW CONTROLS (PILL SHAPE)
+   Target: Minimize, Maximize/Restore, Close buttons rechtsboven
+   Doel: Match de styling van de rest van de Border Theme UI
+   ================================================================= */
+
+/* 1. Pas de container aan zodat knoppen verticaal gecentreerd zijn */
+body:not(.is-mobile) .titlebar-button-container.mod-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    /* Ruimte tussen de knoppen */
+    padding-right: 10px;
+    /* Afstand tot de rechter rand van het scherm */
+    height: 100%;
+    /* Behoud hoogte van header voor positionering */
+}
+
+/* 2. Style de individuele knoppen (shape & size) */
+body:not(.is-mobile) .titlebar-button-container.mod-right .titlebar-button {
+    /* Overschrijf de geforceerde 44px van de theme */
+    height: 30px !important;
+    width: 32px !important;
+    padding: 0 !important;
+    /* Reset padding */
+
+    /* Gebruik de radius variabele van de theme voor consistentie (pill vorm) */
+    border-radius: var(--clickable-icon-radius, 8px) !important;
+
+    /* Zorg voor flexibele centrering van het icoon in de knop */
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+    /* Transities voor soepele hover effecten */
+    transition: background-color 0.15s ease;
+    background-color: transparent;
+    margin: 0 !important;
+    position: relative;
+}
+
+/* 3. Corrigeer de positie van het icoontje zelf (dat via ::after mask werkt in Border theme) */
+body:not(.is-mobile) .titlebar-button-container.mod-right .titlebar-button::after {
+    position: static !important;
+    /* Reset absolute positie uit theme */
+    transform: none !important;
+    /* Reset transformaties */
+    margin: 0 !important;
+    display: block;
+    /* Zorg dat de mask background de kleur van de tekst/icoon volgt */
+    background-color: var(--icon-color, var(--text-muted)) !important;
+}
+
+/* 4. Hover States (Consistent met andere icon buttons) */
+body:not(.is-mobile) .titlebar-button-container.mod-right .titlebar-button:hover {
+    background-color: var(--background-modifier-hover) !important;
+}
+
+/* 5. Specifieke styling voor de Close (X) knop */
+/* Vaak wil je dat deze rood wordt bij hover, maar wel de pill-vorm behoudt */
+body:not(.is-mobile) .titlebar-button-container.mod-right .titlebar-button.mod-close:hover {
+    background-color: var(--background-modifier-error, #e93f33) !important;
+}
+
+/* Zorg dat het X icoontje wit wordt op de rode achtergrond */
+body:not(.is-mobile) .titlebar-button-container.mod-right .titlebar-button.mod-close:hover::after {
+    background-color: white !important;
+}

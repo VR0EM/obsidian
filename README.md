@@ -11,22 +11,12 @@ De volgende snippets zorgen voor de visuele verfijning:
 - **`refined-window-controls.css`**: Past de standaard Windows (Minimaliseren/Sluiten) knoppen aan zodat ze naadloos aansluiten bij de rest van de Obsidian UI knoppen.
 - **`compact_codeblock.css`**: Maakt code-blokken compacter en cleaner, ideaal voor programmeer-notities.
 - **`pdf_print_mooi.css`**: Zorgt ervoor dat notities er professioneel en goed gestructureerd uitzien wanneer ze naar PDF worden geëxporteerd.
-- **`ultimate_border` & `uniformiteit_balken`**: Snippets die zorgen voor een strakke afwerking van de randen en navigatiebalken.
 
 ## 🔌 Belangrijkste Plugins
 - **Style Settings**: Voor het finetunen van de themakleuren en fonts.
 - **Calendar**: Voor het bijhouden van dagelijkse notities en planning.
 - **Mermaid Tools**: Voor het visueel maken van infrastructuren en netwerkdiagrammen.
 - **Advanced Canvas**: Voor complexe brainmaps en projectoverzichten.
-
-## 📁 Structuur
-Mijn vault is georganiseerd per vakgebied:
-- `Cloud Computing`
-- `DevOps`
-- `Enterprise Networking`
-- `Security Project Analysis`
-- `Web Frameworks`
-- `Personal Notes` (Mijn abonnementen en persoonlijke logs)
 
 ---
 *Gemaakt met ❤️ en veel custom CSS.*

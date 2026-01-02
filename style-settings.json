@@ -4,7 +4,6 @@
   "Editor@@codeblock-style-select": "codeblock-style-one-dark",
   "Editor@@blockquote-background-dark": "\"\"",
   "Appearance-light@@card-highlight-light": false,
-  "Editor@@text-highlight-bg@@dark": "#BF3FD0",
   "Editor@@inline-code-background-dark": "rgba(196, 167, 231, 0.15)",
   "Editor@@inline-code-normal": "#e0def4",
   "Components@@tab-autohide": true,
@@ -48,5 +47,6 @@
   "Appearance-dark@@input-radius-dark": 6,
   "Appearance-dark@@card-border-radius-dark": "14px",
   "Appearance-dark@@background-underlying-CSS-dark": "url(\"https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGhod245NmVoZmwzZGVlcXFwbGV5c2M5azNhNXNqaDNtaGVxcGhyciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MPBvFVkSsRnaa8oPoF/giphy.gif\") center center/cover no-repeat fixed",
-  "Appearance-dark@@background-underlying-CSS-blend-mode-dark": "overlay"
+  "Appearance-dark@@background-underlying-CSS-blend-mode-dark": "overlay",
+  "Editor@@text-highlight-bg@@dark": "#761F92"
 }

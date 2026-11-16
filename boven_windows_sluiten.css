@@ -2,6 +2,7 @@
    FIX WINDOW CONTROLS (PILL SHAPE)
    Target: Minimize, Maximize/Restore, Close buttons rechtsboven
    Doel: Match de styling van de rest van de Border Theme UI
+   (Alleen Windows/Linux; op macOS heeft dit geen effect)
    ================================================================= */
 
 /* 1. Pas de container aan zodat knoppen verticaal gecentreerd zijn */
@@ -53,17 +54,17 @@ body:not(.is-mobile) .titlebar-button-container.mod-right .titlebar-button::afte
 }
 
 /* 4. Hover States (Consistent met andere icon buttons) */
-body:not(.is-mobile) .titlebar-button-container.mod-right .titlebar-button:hover {
+body:not(.is-mobile) .titlebar-button-container.mod-right .titlebar-button:is(:hover, :focus-visible) {
     background-color: var(--background-modifier-hover) !important;
 }
 
 /* 5. Specifieke styling voor de Close (X) knop */
 /* Vaak wil je dat deze rood wordt bij hover, maar wel de pill-vorm behoudt */
-body:not(.is-mobile) .titlebar-button-container.mod-right .titlebar-button.mod-close:hover {
+body:not(.is-mobile) .titlebar-button-container.mod-right .titlebar-button.mod-close:is(:hover, :focus-visible) {
     background-color: var(--background-modifier-error, #e93f33) !important;
 }
 
 /* Zorg dat het X icoontje wit wordt op de rode achtergrond */
-body:not(.is-mobile) .titlebar-button-container.mod-right .titlebar-button.mod-close:hover::after {
+body:not(.is-mobile) .titlebar-button-container.mod-right .titlebar-button.mod-close:is(:hover, :focus-visible)::after {
     background-color: white !important;
 }

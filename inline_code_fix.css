@@ -1,0 +1,36 @@
+/* =========================================================
+   INLINE CODE SPACING
+   - Leesmodus: één element, simpel te stylen
+   - Editor: enkel lettergrootte (zie uitleg onderaan)
+   - PDF-styling van inline code staat in pdf_print_mooi.css
+   ========================================================= */
+
+body {
+  --bt-code-radius: 5px;
+  --bt-code-pad-x: 0.4em;
+  --bt-code-gap: 2px;
+}
+
+/* ---------- Leesmodus ---------- */
+.markdown-rendered :not(pre) > code {
+  padding: 0.15em var(--bt-code-pad-x);
+  margin-inline: var(--bt-code-gap);
+  border-radius: var(--bt-code-radius);
+  font-size: 0.9em;
+  vertical-align: baseline;
+}
+
+/* In tabelcellen wat verticale lucht tussen gestapelde commando's */
+.markdown-rendered :is(td, th) code {
+  display: inline-block;
+  margin-block: 2px;
+  line-height: 1.4;
+}
+
+/* ---------- Editor (live preview + source mode) ----------
+   Alleen lettergrootte. De editor knipt `code` op in losse spans
+   (backtick | inhoud | backtick); padding/marge/ronding per span
+   geeft gaten in de pill, dus dat laten we aan Obsidian/Border. */
+.markdown-source-view.mod-cm6 .cm-line span.cm-inline-code {
+  font-size: 0.9em;
+}

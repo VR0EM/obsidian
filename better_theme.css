@@ -40,10 +40,11 @@ body.colorful-folder .nav-folder > .nav-folder-title:hover {
 
 /* =========================================================
    AFBEELDINGEN (leesmodus + live preview)
-   Alleen echte afbeeldingen, geen emoji's of plugin-iconen.
+   Alleen echte afbeeldingen, geen emoji's, plugin-iconen of
+   CodeMirror's onzichtbare img.cm-widgetBuffer hulpelementen.
    ========================================================= */
 
-:is(.markdown-rendered, .markdown-source-view) :is(.image-embed, p, .cm-line) > img:not(.emoji) {
+:is(.markdown-rendered, .markdown-source-view) :is(.image-embed, .image-wrapper, p) > img:not(.emoji, .cm-widgetBuffer) {
   display: block;
   margin-inline: auto;
   border-radius: var(--bt-img-radius);
@@ -51,8 +52,13 @@ body.colorful-folder .nav-folder > .nav-folder-title:hover {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Live preview: de embed is inline-flex, dus centreer via de regel zelf */
+.markdown-source-view.mod-cm6 .cm-line:has(> .image-embed) {
+  text-align: center;
+}
+
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  :is(.markdown-rendered, .markdown-source-view) :is(.image-embed, p, .cm-line) > img:not(.emoji):hover {
+  :is(.markdown-rendered, .markdown-source-view) :is(.image-embed, .image-wrapper, p) > img:not(.emoji, .cm-widgetBuffer):hover {
     transform: scale(1.015);
     box-shadow: 0 8px 20px rgb(0 0 0 / 0.2);
   }
@@ -86,6 +92,7 @@ body.colorful-folder .nav-folder > .nav-folder-title:hover {
 .markdown-rendered th,
 .markdown-rendered td {
   padding: 10px 12px;
+  vertical-align: middle; /* tekst en `code` in cellen op één lijn */
   border: 0;
   border-bottom: 1px solid var(--bt-border-subtle);
 }

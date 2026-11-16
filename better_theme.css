@@ -1,165 +1,153 @@
 /* =========================================================
-   COLORFUL FOLDER
+   BETTER THEME — aanvulling op het Border thema
+   ---------------------------------------------------------
+   Instellingen staan bovenaan. Alles werkt via Obsidian/Border
+   variabelen, zodat lettergrootte-slider, "Readable line length"
+   en Style Settings blijven werken.
    ========================================================= */
 
-/* Styling voor de tekst in de map */
+body {
+  /* Leesbreedte: Obsidian gebruikt deze variabele zelf wanneer
+     "Readable line length" aan staat (uitzetten werkt dus nog). */
+  --file-line-width: 900px;
+
+  /* Regelhoogte: Border gebruikt deze variabele in editor + leesmodus.
+     Een waarde uit Style Settings wint hier automatisch van. */
+  --line-height-customize: 1.62;
+
+  /* Eigen tokens (alleen in dit bestand gebruikt) */
+  --bt-table-radius: 14px;
+  --bt-modal-radius: 18px;
+  --bt-item-radius: 12px;
+  --bt-img-radius: 8px;
+  --bt-border-subtle: color-mix(in srgb, var(--background-modifier-border) 75%, transparent);
+}
+
+
+/* =========================================================
+   COLORFUL FOLDER (Border: Style Settings → Components)
+   ========================================================= */
+
 body.colorful-folder .nav-folder > .nav-folder-title .nav-folder-title-content {
   color: var(--colorful-folder-color);
   font-weight: 600;
 }
 
-/* Hover effect: Kleur wordt duidelijker als je eroverheen gaat */
 body.colorful-folder .nav-folder > .nav-folder-title:hover {
-  background-color: color-mix(in srgb, var(--colorful-folder-color), transparent 60%);
+  background-color: color-mix(in srgb, var(--colorful-folder-color) 40%, transparent);
 }
 
 
 /* =========================================================
-   IMAGES (READ MODE + LIVE PREVIEW)
+   AFBEELDINGEN (leesmodus + live preview)
+   Alleen echte afbeeldingen, geen emoji's of plugin-iconen.
    ========================================================= */
 
-/* Afbeeldingen in lees-modus en live-preview */
-.markdown-source-view img,
-.markdown-rendered img {
-  border-radius: 8px; /* Ronde hoeken */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* Subtiele schaduw */
-  transition: transform 0.2s ease; /* Voorbereiding voor hover */
+:is(.markdown-rendered, .markdown-source-view) :is(.image-embed, p, .cm-line) > img:not(.emoji) {
   display: block;
-  margin-left: auto;
-  margin-right: auto; /* Centreer afbeeldingen automatisch */
+  margin-inline: auto;
+  border-radius: var(--bt-img-radius);
+  box-shadow: 0 4px 10px rgb(0 0 0 / 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Klein zoom-effect als je met je muis over een plaatje gaat */
-.markdown-source-view img:hover,
-.markdown-rendered img:hover {
-  transform: scale(1.015);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  :is(.markdown-rendered, .markdown-source-view) :is(.image-embed, p, .cm-line) > img:not(.emoji):hover {
+    transform: scale(1.015);
+    box-shadow: 0 8px 20px rgb(0 0 0 / 0.2);
+  }
 }
 
 
 /* =========================================================
-   04-editor-readability.css
+   EDITOR: actieve regel subtiel highlighten
+   - alleen als de editor focus heeft
+   - niet in codeblokken/tabellen (anders verdwijnt hun achtergrond)
    ========================================================= */
 
-:root {
-  --reading-line-height: 1.62;
-  --reading-font-size: 16px;
-  --reading-max-width: 900px;
-}
-
-/* Reading view + live preview: net wat ruimer en rustiger */
-.markdown-preview-view,
-.markdown-source-view.mod-cm6 .cm-content {
-  font-size: var(--reading-font-size);
-  line-height: var(--reading-line-height);
-}
-
-/* Max breedte voor tekst, zodat het niet te “wide” wordt */
-.markdown-preview-sizer,
-.markdown-source-view.mod-cm6 .cm-sizer {
-  max-width: var(--reading-max-width);
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-
-/* Current line highlight (subtiel) */
-.markdown-source-view.mod-cm6 .cm-line.cm-active {
-  background: color-mix(in srgb, var(--interactive-accent) 8%, transparent);
+.markdown-source-view.mod-cm6 .cm-focused .cm-line.cm-active:not(.HyperMD-codeblock):not(.HyperMD-table-row) {
+  background-color: color-mix(in srgb, var(--interactive-accent) 8%, transparent);
   border-radius: 8px;
 }
 
 
 /* =========================================================
-   08-tables-modern.css
+   TABELLEN (modern, ronde hoeken, zebra)
    ========================================================= */
 
 .markdown-rendered table {
   border-collapse: separate;
   border-spacing: 0;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--background-modifier-border) 75%, transparent);
+  border-radius: var(--bt-table-radius);
+  overflow: hidden; /* knipt de hoeken van de cellen mee af */
+  border: 1px solid var(--bt-border-subtle);
+}
+
+.markdown-rendered th,
+.markdown-rendered td {
+  padding: 10px 12px;
+  border: 0;
+  border-bottom: 1px solid var(--bt-border-subtle);
+}
+
+.markdown-rendered tbody tr:last-child > td {
+  border-bottom: 0;
 }
 
 .markdown-rendered thead th {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background-color: var(--background-primary);
 }
 
-.markdown-rendered thead th:nth-child(1){
-  border-top-left-radius: 14px;
-}
-.markdown-rendered thead th:last-child{
-  border-top-right-radius: 14px;
-}
-
-/* Zebra */
-.markdown-rendered tbody tr:nth-child(2n) td {
-  background: rgba(255,255,255,0.02);
-}
-
-.markdown-rendered td,
-.markdown-rendered th {
-  padding: 10px 12px;
-  border-bottom: 1px solid color-mix(in srgb, var(--background-modifier-border) 70%, transparent);
+/* Zebra: werkt in zowel licht als donker thema */
+.markdown-rendered tbody tr:nth-child(even) > td {
+  background-color: color-mix(in srgb, var(--text-normal) 3%, transparent);
 }
 
 
 /* =========================================================
-   12-modals-command-glass.css
+   MODALS, COMMAND PALETTE & POPOVERS (donker thema)
    ========================================================= */
 
-.theme-dark .modal,
-.theme-dark .suggestion-container,
-.theme-dark .prompt,
-.theme-dark .popover {
-  backdrop-filter: blur(18px) saturate(125%);
-  -webkit-backdrop-filter: blur(18px) saturate(125%);
-  background: color-mix(in srgb, var(--background-primary) 70%, transparent) !important;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 40px 120px -80px rgba(0,0,0,0.95);
-  border-radius: 18px;
+.theme-dark :is(.modal, .prompt, .suggestion-container, .popover) {
+  background: var(--background-primary) !important;
+  border: 1px solid var(--bt-border-subtle);
+  border-radius: var(--bt-modal-radius);
+  box-shadow: 0 40px 120px -80px rgb(0 0 0 / 0.95);
 }
 
-/* Suggestion items (quick switcher / cmd palette) */
 .theme-dark .suggestion-item {
-  border-radius: 12px;
+  border-radius: var(--bt-item-radius);
   margin: 4px 6px;
   padding: 10px 12px;
 }
 
 .theme-dark .suggestion-item.is-selected {
-  background: color-mix(in srgb, var(--interactive-accent) 18%, rgba(255,255,255,0.03)) !important;
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
+  background: color-mix(in srgb, var(--interactive-accent) 18%, transparent) !important;
+  box-shadow: 0 0 0 1px var(--bt-border-subtle);
 }
 
 
 /* =========================================================
-   24-header-title-polish.css
+   VIEW HEADER (titelbalk van een notitie)
    ========================================================= */
 
 .view-header-title {
   font-weight: 650;
   letter-spacing: -0.01em;
-  opacity: 0.95;
 }
 
 .view-header {
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  backdrop-filter: blur(12px) saturate(115%);
-  -webkit-backdrop-filter: blur(12px) saturate(115%);
+  border-bottom: 1px solid var(--bt-border-subtle);
+  transition: border-color 0.2s ease;
 }
 
 .view-header:hover {
-  border-bottom-color: color-mix(in srgb, var(--interactive-accent) 25%, rgba(255,255,255,0.06));
+  border-bottom-color: color-mix(in srgb, var(--interactive-accent) 25%, var(--background-modifier-border));
 }
 
 
 /* =========================================================
-   25-hit-targets.css
+   GROTERE KLIKZONES
    ========================================================= */
 
 .nav-file-title,
@@ -169,37 +157,19 @@ button.clickable-icon {
   min-height: 30px;
 }
 
-/* Klikzone voor tabs iets breder */
-.workspace-tab-header-inner {
-  padding-left: 12px !important;
-  padding-right: 12px !important;
+/* Alleen de notitie-tabs bovenaan, niet de icoon-tabs in de zijbalken */
+.workspace .mod-root .workspace-tab-header-inner {
+  padding-inline: 12px;
 }
 
 
 /* =========================================================
-   26-design-tokens.css
+   PRINT / PDF: geen schaduwen of hover-effecten op papier
    ========================================================= */
 
-/* Pas dit aan en de rest volgt mee */
-:root {
-  --radius-s: 10px;
-  --radius-m: 14px;
-  --radius-l: 18px;
-
-  --panel-alpha: 0.72;
-  --panel-border: rgba(255,255,255,0.07);
-
-  --shadow-soft: 0 18px 50px -44px rgba(0,0,0,0.95);
-  --shadow-med: 0 24px 70px -56px rgba(0,0,0,0.95);
-
-  --glass-blur: 18px;
-  --glass-sat: 125%;
-
-  --ui-pad: 10px;
-  --ui-gap: 8px;
-
-  --hover-lift: translateY(-1px);
-  --transition-fast: 120ms;
-  --transition-med: 200ms;
+@media print {
+  .markdown-rendered img {
+    box-shadow: none !important;
+    transform: none !important;
+  }
 }
-

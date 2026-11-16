@@ -8,9 +8,11 @@ Ik gebruik het **[Border](https://github.com/phibr0/obsidian-border)** thema als
 ### CSS Snippets (The "Secret Sauce")
 De volgende snippets zorgen voor de visuele verfijning:
 - **`better_theme.css`**: Mijn core styling. Zorgt voor kleurrijke mappen, moderne tabellen met ronde hoeken en mooie hover-effecten op afbeeldingen.
-- **`refined-window-controls.css`**: Past de standaard Windows (Minimaliseren/Sluiten) knoppen aan zodat ze naadloos aansluiten bij de rest van de Obsidian UI knoppen.
+- **`boven_windows_sluiten.css`**: Past de standaard Windows (Minimaliseren/Sluiten) knoppen aan zodat ze naadloos aansluiten bij de rest van de Obsidian UI knoppen.
 - **`compact_codeblock.css`**: Maakt code-blokken compacter en cleaner, ideaal voor programmeer-notities.
+- **`inline_code_fix.css`**: Nette spacing voor `inline code` in leesmodus en tabellen.
 - **`pdf_print_mooi.css`**: Zorgt ervoor dat notities er professioneel en goed gestructureerd uitzien wanneer ze naar PDF worden geëxporteerd.
+- **`liquid_glass.css`** *(optioneel)*: Doorzichtig "glass" effect voor het instellingenmenu.
 
 ## 🔌 Belangrijkste Plugins
 - **Style Settings**: Voor het finetunen van de themakleuren en fonts.
